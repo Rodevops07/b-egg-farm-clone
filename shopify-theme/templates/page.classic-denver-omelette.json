@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": {
+      "type": "begg-classic-denver-omelette"
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

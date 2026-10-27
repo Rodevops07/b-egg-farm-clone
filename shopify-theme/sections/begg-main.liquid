@@ -1,0 +1,53 @@
+{% comment %}
+  BEGG Farm Full Interactive Experience Section
+  Supports Shopify Pages (/pages/about, /pages/products, /pages/recipes, etc.)
+  AND instant query navigation (/?begg_page=about, /?begg_page=products, etc.)
+{% endcomment %}
+
+<div id="begg-dynamic-root">
+  {% if request.page_type == 'page' %}
+    {% case page.handle %}
+      {% when 'about' %}
+        {% render 'begg-page-about' %}
+      {% when 'products' %}
+        {% render 'begg-page-products' %}
+      {% when 'product-1' %}
+        {% render 'begg-page-product-1' %}
+      {% when 'product-2' %}
+        {% render 'begg-page-product-2' %}
+      {% when 'recipes' %}
+        {% render 'begg-page-recipes' %}
+      {% when 'fluffy-scrambled-eggs' %}
+        {% render 'begg-page-fluffy-scrambled-eggs' %}
+      {% when 'classic-denver-omelette' %}
+        {% render 'begg-page-classic-denver-omelette' %}
+      {% when 'egg-pancakes' %}
+        {% render 'begg-page-egg-pancakes' %}
+      {% when 'ultimate-meringue' %}
+        {% render 'begg-page-ultimate-meringue' %}
+      {% else %}
+        {% render 'begg-page-index' %}
+    {% endcase %}
+  {% else %}
+    <div id="begg-view-index" class="begg-view-panel">{% render 'begg-page-index' %}</div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "BEGG Interactive App",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand Title",
+      "default": "BEGG | High-Quality Liquid Egg Products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BEGG Interactive App"
+    }
+  ]
+}
+{% endschema %}

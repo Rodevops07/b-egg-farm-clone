@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": {
+      "type": "begg-fluffy-scrambled-eggs"
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
