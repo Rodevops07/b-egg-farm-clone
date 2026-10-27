@@ -102,7 +102,7 @@
     <div class="hero_section"><img src="images/0001.png" loading="eager" style="display:block;opacity:1" sizes="(max-width: 479px) 0px, 100vw" alt="" srcset="images/0001-p-500.png 500w, images/0001-p-800.png 800w, images/0001-p-1080.png 1080w, images/0001-p-1600.png 1600w, images/0001.png 1920w" class="video_placeholder">
       <div class="video_mask">
         <div class="video-wrap packs">
-          <div class="background_video hidden w-embed"><video class="video" autoplay="" true="" playsinline="" muted="" poster="images/hero_poster.jpg" style="position:absolute; z-index: 0;" allow="autoplay; fullscreen" allowfullscreen="">
+          <div class="background_video hidden w-embed"><video class="video" autoplay="" true="" playsinline="" muted="" poster="images/0001.png" style="position:absolute; z-index: 0;" allow="autoplay; fullscreen" allowfullscreen="">
               <source src="images/first_screen.mp4" type="video/mp4">
             </video>
             <style>
@@ -551,7 +551,7 @@ height: 100%;
   var Webflow = Webflow || [];
   Webflow.push(function() {
       window.addEventListener('resize', function() {
-      console.log("resizing");
+      
           window.Webflow.require("lottie").lottie.resize();
       });
   });
@@ -604,20 +604,14 @@ height: 100%;
   let counter = {
     value: 0
   };
-  let loaderDuration = 1.5;
-  // If not a first time visit in this tab
-  if (sessionStorage.getItem("visited") !== null) {
-    loaderDuration = 1.0;
-    counter = {
-      value: 85
-    };
-  }
-  sessionStorage.setItem("visited", "true");
+  let loaderDuration = 1.8;
   function updateLoaderText() {
     let progress = Math.round(counter.value);
     $(".loader_number").text(progress);
   }
   function endLoaderAnimation() {
+    var hv = document.querySelector(".hero_section video.video");
+    if (hv) { try { hv.currentTime = 0; hv.play(); } catch(e) {} }
     $(".trigger").click();
   }
   let tl = gsap.timeline({
@@ -648,9 +642,7 @@ height: 100%;
   infinite: false,
   })
   //get scroll value
-  lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-    console.log({ scroll, limit, velocity, direction, progress })
-  })
+  
   function raf(time) {
     lenis.raf(time)
     requestAnimationFrame(raf)

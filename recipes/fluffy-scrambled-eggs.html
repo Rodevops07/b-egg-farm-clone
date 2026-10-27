@@ -291,7 +291,7 @@
     var Webflow = Webflow || [];
     Webflow.push(function() {
         window.addEventListener('resize', function() {
-            console.log("resizing");
+            
             window.Webflow.require("lottie").lottie.resize();
         });
     });
@@ -388,9 +388,7 @@
         infinite: false,
     })
     //get scroll value
-    lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-        console.log({ scroll, limit, velocity, direction, progress })
-    })
+    
     function raf(time) {
         lenis.raf(time)
         requestAnimationFrame(raf)

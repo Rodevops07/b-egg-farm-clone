@@ -49,7 +49,7 @@
     </div>
     <div data-preserve-aspect-ratio="xMidYMid slice" data-is-ix2-target="1" class="image_wrapper"
          data-w-id="d1deb98c-64b7-e467-ee68-be7f7b316ff5" data-animation-type="lottie"
-         data-src="https://clone-opal-two.vercel.app/documents/menu_original.mp4.lottie.json" data-loop="0" data-direction="1" data-autoplay="0"
+         data-src="{{ 'menu_original.mp4.lottie.json' | asset_url }}" data-loop="0" data-direction="1" data-autoplay="0"
          data-renderer="svg" data-default-duration="2.0689655172413794" data-duration="0"></div>
 </div>
 <div data-w-id="373c4cf4-ab6c-9935-dc3e-d6d85bd40a4e" class="nav_wrapper">
@@ -131,7 +131,7 @@
                             <h2 data-w-id="b30a9aad-0d4d-36a3-de9b-af74cc0fc714" class="h2_black">EGG WHITE</h2>
                         </div>
                         <div data-w-id="70f5fcf4-b6b0-e920-b45d-eb1df4f85a3f" data-is-ix2-target="1" class="image-38"
-                             data-animation-type="lottie" data-src="https://clone-opal-two.vercel.app/documents/Product.json" data-loop="0"
+                             data-animation-type="lottie" data-src="{{ 'Product.json' | asset_url }}" data-loop="0"
                              data-direction="1" data-autoplay="0" data-renderer="svg" data-default-duration="1.3"
                              data-duration="0" data-ix2-initial-state="0"></div>
                     </div>
@@ -249,7 +249,7 @@
                                         <script src="{{ 'lottie-player.js' | asset_url }}"></script>
 
                                         <lottie-player autoplay="" mode="normal"
-                                                       src="https://clone-opal-two.vercel.app/documents/Breakfast-1.json"
+                                                       src="{{ 'Breakfast-1.json' | asset_url }}"
                                                        background="transparent">
                                         </lottie-player>
                                     </div>
@@ -286,7 +286,7 @@
                                         <script src="{{ 'lottie-player.js' | asset_url }}"></script>
 
                                         <lottie-player autoplay="" mode="normal"
-                                                       src="https://clone-opal-two.vercel.app/documents/Breakfast-1.json"
+                                                       src="{{ 'Breakfast-1.json' | asset_url }}"
                                                        background="transparent">
                                         </lottie-player>
                                     </div>
@@ -438,9 +438,7 @@
         infinite: false,
     })
     //get scroll value
-    lenis.on('scroll', ({scroll, limit, velocity, direction, progress}) => {
-        console.log({scroll, limit, velocity, direction, progress})
-    })
+    
 
     function raf(time) {
         lenis.raf(time)
@@ -550,22 +548,4 @@
                 });
         });
     }
-</script>
-
-<script>
-  (function() {
-    function safeUnlock() {
-      var loader = document.querySelector(".loader");
-      if (loader && getComputedStyle(loader).display !== "none" && parseFloat(getComputedStyle(loader).opacity) > 0.1) {
-        try { $(".trigger").trigger("click"); } catch(e) {}
-      }
-      var preloader = document.querySelector(".pre_load_pages");
-      if (preloader && getComputedStyle(preloader).display !== "none" && parseFloat(getComputedStyle(preloader).opacity) > 0.1) {
-        preloader.style.transition = "opacity 0.4s ease";
-        preloader.style.opacity = "0";
-        setTimeout(function() { preloader.style.display = "none"; }, 400);
-      }
-    }
-    window.addEventListener("load", function() { setTimeout(safeUnlock, 2800); });
-  })();
 </script>

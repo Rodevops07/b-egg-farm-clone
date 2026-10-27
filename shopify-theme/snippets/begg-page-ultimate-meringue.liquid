@@ -43,7 +43,7 @@
     </div>
     <div data-preserve-aspect-ratio="xMidYMid slice" data-is-ix2-target="1" class="image_wrapper"
          data-w-id="d1deb98c-64b7-e467-ee68-be7f7b316ff5" data-animation-type="lottie"
-         data-src="https://clone-opal-two.vercel.app/documents/menu_original.mp4.lottie.json"
+         data-src="{{ 'menu_original.mp4.lottie.json' | asset_url }}"
          data-loop="0" data-direction="1" data-autoplay="0" data-renderer="svg"
          data-default-duration="2.0689655172413794" data-duration="0"></div>
 </div>
@@ -90,7 +90,7 @@
                                     autoplay
 
                                     mode="normal"
-                                    src="https://clone-opal-two.vercel.app/documents/Cake-1.json"
+                                    src="{{ 'Cake-1.json' | asset_url }}"
                             >
                             </lottie-player>
                         </div>
@@ -278,7 +278,7 @@
     var Webflow = Webflow || [];
     Webflow.push(function() {
         window.addEventListener('resize', function() {
-            console.log("resizing");
+            
             window.Webflow.require("lottie").lottie.resize();
         });
     });
@@ -375,9 +375,7 @@
         infinite: false,
     })
     //get scroll value
-    lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-        console.log({ scroll, limit, velocity, direction, progress })
-    })
+    
     function raf(time) {
         lenis.raf(time)
         requestAnimationFrame(raf)
@@ -492,21 +490,3 @@
     }
 </script>
 
-
-<script>
-  (function() {
-    function safeUnlock() {
-      var loader = document.querySelector(".loader");
-      if (loader && getComputedStyle(loader).display !== "none" && parseFloat(getComputedStyle(loader).opacity) > 0.1) {
-        try { $(".trigger").trigger("click"); } catch(e) {}
-      }
-      var preloader = document.querySelector(".pre_load_pages");
-      if (preloader && getComputedStyle(preloader).display !== "none" && parseFloat(getComputedStyle(preloader).opacity) > 0.1) {
-        preloader.style.transition = "opacity 0.4s ease";
-        preloader.style.opacity = "0";
-        setTimeout(function() { preloader.style.display = "none"; }, 400);
-      }
-    }
-    window.addEventListener("load", function() { setTimeout(safeUnlock, 2800); });
-  })();
-</script>
