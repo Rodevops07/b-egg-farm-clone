@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BEGG | High-Quality Liquid Egg Products for Every Need</title>
+  <link rel="icon" type="image/png" href="https://www.b-egg.farm/images/favicon.png" />
+
+  <!-- Fallback Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            begg: {
+              cream: '#FBF9F1',
+              creamAlt: '#F6F4ED',
+              yolk: '#F4B30C',
+              dark: '#1A1200',
+              beige: '#DDD9C5',
+              black: '#000000'
+            }
+          },
+          fontFamily: {
+            display: ['"Summer loving sans"', '"Anton"', 'Impact', 'sans-serif'],
+            script: ['"Summer loving solid"', '"Summer loving"', 'cursive'],
+            sans: ['"Gt america standard trial"', '"Inter"', 'system-ui', 'sans-serif'],
+            mono: ['"Gt america mono trial"', '"Space Mono"', 'monospace'],
+          },
+          borderRadius: {
+            pill: '140px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Direct Font-Face Links from b-egg.farm */
+    @font-face {
+      font-family: 'Summer loving sans';
+      src: url('https://www.b-egg.farm/fonts/Summer-Loving-Sans.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Summer loving solid';
+      src: url('https://www.b-egg.farm/fonts/Summer-Loving-Solid.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gt america mono trial';
+      src: url('https://www.b-egg.farm/fonts/GT-America-Mono-Regular-Trial.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gt america standard trial';
+      src: url('https://www.b-egg.farm/fonts/GT-America-Standard-Regular-Trial.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gt america standard trial';
+      src: url('https://www.b-egg.farm/fonts/GT-America-Standard-Bold-Trial.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Viewport-scaled headings matching begg.css */
+    .display-h1 {
+      font-family: 'Summer loving sans', 'Anton', sans-serif;
+      font-size: clamp(3.8rem, 10vw, 11rem);
+      line-height: 0.82;
+      text-transform: uppercase;
+    }
+    .display-h2 {
+      font-family: 'Summer loving sans', 'Anton', sans-serif;
+      font-size: clamp(2.8rem, 6.7vw, 7.5rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+    }
+    .display-h4 {
+      font-family: 'Summer loving sans', 'Anton', sans-serif;
+      font-size: clamp(1.8rem, 3.33vw, 3.6rem);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+      50% { transform: translateY(-10px) rotate(var(--rot, 0deg)); }
+    }
+    .nutrient-pill {
+      animation: floatSlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-begg-cream text-begg-black font-sans antialiased selection:bg-begg-yolk selection:text-begg-dark overflow-x-hidden">
+
+  <!-- =========================================================================
+       1. ANNOUNCEMENT BAR & HEADER / NAVIGATION (Fixed Blur Nav + Modal Menu)
+       ========================================================================= -->
+  <div id="shopify-section-header" class="relative z-50">
+    <!-- Top E-Commerce Announcement Bar -->
+    <div class="bg-begg-dark text-begg-cream font-mono text-[11px] sm:text-xs uppercase tracking-widest py-2.5 px-4 border-b border-white/10">
+      <div class="max-w-[90vw] mx-auto flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-begg-yolk animate-pulse"></span>
+          <span>100% Pasteurized Liquid Eggs — Shelf Life: 30 Days at (4 + 2) °C</span>
+        </div>
+        <div class="hidden md:flex items-center gap-6 text-begg-beige">
+          <span>Barcode: 4820 1316 6088</span>
+          <button onclick="toggleStockistModal(true)" class="text-begg-yolk underline underline-offset-4 hover:text-white transition-colors uppercase">
+            Find Stockists &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Backdrop-Blur Header (.nav_wrapper) -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-begg-cream/80 border-b border-begg-black/5">
+      <div class="max-w-[90vw] mx-auto py-4 lg:py-5 grid grid-cols-3 items-center">
+        
+        <!-- Left: Asymmetric 3-Line Menu Trigger (.menu_btn) -->
+        <div class="flex items-center justify-start">
+          <button
+            id="menu-open-btn"
+            type="button"
+            aria-label="Open navigation menu"
+            class="group flex flex-col items-start justify-between py-2 pr-4 focus:outline-none"
+          >
+            <span class="block h-[3px] w-10 bg-begg-black rounded-full transition-all duration-300 group-hover:w-7"></span>
+            <span class="block h-[3px] w-6 bg-begg-black rounded-full my-1.5 transition-all duration-300 group-hover:w-10 group-hover:bg-begg-yolk"></span>
+            <span class="block h-[3px] w-8 bg-begg-black rounded-full transition-all duration-300 group-hover:w-6"></span>
+          </button>
+          <nav class="hidden lg:flex items-center gap-8 ml-6 font-mono text-xs uppercase tracking-wider">
+            <a href="#products" class="hover:text-begg-yolk transition-colors">Products</a>
+            <a href="#energy" class="hover:text-begg-yolk transition-colors">Energy Value</a>
+            <a href="#features" class="hover:text-begg-yolk transition-colors">Packaging</a>
+            <a href="#recipes" class="hover:text-begg-yolk transition-colors">Recipes</a>
+          </nav>
+        </div>
+
+        <!-- Center: Official B-Egg SVG Logo -->
+        <div class="flex justify-center">
+          <a href="#" aria-label="BEGG Home" class="inline-block hover:scale-105 transition-transform">
+            <img
+              src="https://www.b-egg.farm/images/logo.svg"
+              alt="BEGG Logo"
+              class="w-16 sm:w-20 lg:w-[5vw] min-w-[64px] h-auto"
+            />
+          </a>
+        </div>
+
+        <!-- Right: Find Stockists Modal Trigger -->
+        <div class="flex items-center justify-end gap-3">
+          <button
+            type="button"
+            onclick="toggleStockistModal(true)"
+            class="inline-flex items-center justify-center bg-begg-black text-begg-yolk font-mono text-xs uppercase tracking-wider px-5 py-2.5 sm:px-6 sm:py-3 rounded-pill hover:bg-begg-yolk hover:text-begg-black transition-all duration-200"
+          >
+            Find Stockists
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Fullscreen Navigation Drawer (.modal_wrapper) -->
+    <div
+      id="nav-drawer"
+      class="fixed inset-0 z-50 bg-begg-yolk text-begg-dark hidden opacity-0 transition-opacity duration-300 flex flex-col justify-between p-6 sm:p-12 lg:p-16"
+      aria-hidden="true"
+    >
+      <div class="max-w-[90vw] w-full mx-auto flex items-center justify-between">
+        <img src="https://www.b-egg.farm/images/logo.svg" alt="BEGG" class="w-16 h-auto" />
+        <button
+          id="menu-close-btn"
+          type="button"
+          aria-label="Close menu"
+          class="w-12 h-12 rounded-full border-2 border-begg-dark flex items-center justify-center hover:bg-begg-dark hover:text-begg-yolk transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="max-w-[90vw] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-end my-auto">
+        <nav class="lg:col-span-8 flex flex-col space-y-2">
+          <a href="#" class="display-h2 text-begg-dark hover:text-white transition-colors">Home</a>
+          <a href="#best" class="display-h2 text-begg-dark hover:text-white transition-colors">About</a>
+          <a href="#products" class="display-h2 text-begg-dark hover:text-white transition-colors">Products</a>
+          <a href="#recipes" class="display-h2 text-begg-dark hover:text-white transition-colors">Recipes</a>
+        </nav>
+        <div class="lg:col-span-4 font-mono text-sm uppercase space-y-4 border-t lg:border-t-0 lg:border-l border-begg-dark/20 pt-6 lg:pt-0 lg:pl-8">
+          <div>
+            <a href="mailto:Beateneggs@world.com" class="block hover:underline">Beateneggs@world.com</a>
+            <a href="tel:+301103712437" class="block hover:underline">+30 110 3712 437</a>
+          </div>
+          <div class="text-begg-dark/80">
+            3517 W. Gray St. Utica,<br />Pennsylvania 57867
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. HERO BANNER & CALL-TO-ACTION (.hero_section)
+       Uses direct video & poster assets from b-egg.farm
+       ========================================================================= -->
+  <section class="relative w-full min-h-[92vh] bg-begg-cream flex items-center justify-center overflow-hidden">
+    <!-- Background Video & Fallback Image from b-egg.farm -->
+    <img
+      src="https://www.b-egg.farm/images/0001.png"
+      alt="BEGG Liquid Egg Cartons"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <video
+      class="absolute inset-0 w-full h-full object-cover"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="https://www.b-egg.farm/images/0001.png"
+    >
+      <source src="https://www.b-egg.farm/images/first_screen.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Subtle dark radial vignette for text legibility -->
+    <div class="absolute inset-0 bg-black/20"></div>
+
+    <!-- Hero Text Container (.container_hero) -->
+    <div class="relative z-10 max-w-[85vw] w-full mx-auto text-center flex flex-col items-center py-20">
+      <img
+        src="https://www.b-egg.farm/images/hero_text_title.svg"
+        alt="B-Egg Script Accent"
+        class="w-48 sm:w-64 lg:w-80 h-auto mb-4 drop-shadow-md"
+      />
+      <h1 class="display-h1 text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.35)]">
+        <span class="block">A New Look</span>
+        <span class="block">At A Familiar</span>
+        <span class="block text-begg-yolk">Product</span>
+      </h1>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="#products"
+          class="bg-begg-black text-begg-yolk font-mono text-xs sm:text-sm uppercase tracking-wider px-9 py-5 rounded-pill hover:bg-begg-yolk hover:text-begg-black hover:scale-110 transition-all duration-200 shadow-xl"
+        >
+          Check Products
+        </a>
+        <a
+          href="#recipes"
+          class="bg-white/90 backdrop-blur text-begg-black font-mono text-xs sm:text-sm uppercase tracking-wider px-9 py-5 rounded-pill hover:bg-begg-yolk transition-all duration-200 shadow-xl"
+        >
+          Check Recipes
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3. ENERGY VALUE & NUTRIENT BUBBLES SECTION (.milk_section_top + .physics_section)
+       ========================================================================= -->
+  <section id="energy" class="relative w-full bg-begg-cream overflow-hidden">
+    <!-- Milk Splash Banner with Direct Image -->
+    <div class="relative w-full">
+      <img
+        src="https://www.b-egg.farm/images/milk.webp"
+        alt="Liquid Egg & Milk Splash"
+        class="hidden sm:block w-full h-auto object-cover"
+      />
+      <img
+        src="https://www.b-egg.farm/images/milk_mobile_bg.png"
+        alt="Liquid Egg & Milk Splash Mobile"
+        class="block sm:hidden w-full h-auto object-cover"
+      />
+
+      <div class="sm:absolute inset-0 flex items-center justify-center bg-begg-yolk sm:bg-transparent py-12 sm:py-0 px-6">
+        <div class="max-w-[85vw] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div class="text-center lg:text-left">
+            <h2 class="display-h2 text-begg-black">Energy Value</h2>
+            <img
+              src="https://www.b-egg.farm/images/lettering.svg"
+              alt="per 100g of product"
+              class="w-48 sm:w-64 lg:w-72 h-auto mx-auto lg:mx-0 mt-2"
+            />
+          </div>
+          <div class="flex flex-col sm:flex-row lg:flex-col items-center lg:items-end justify-center gap-3 font-mono text-xs sm:text-sm uppercase font-bold">
+            <div class="bg-begg-black text-begg-yolk px-6 py-3.5 rounded-pill shadow-md">
+              FAT — 10.2 G
+            </div>
+            <div class="bg-begg-black text-white px-6 py-3.5 rounded-pill shadow-md">
+              CARBOHYDRATES — 1.1 G
+            </div>
+            <div class="bg-begg-cream border-2 border-begg-black text-begg-black px-6 py-3.5 rounded-pill shadow-md">
+              PROTEINS — 12.5 G
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vitamins & Minerals Floating Bubbles (.physics_section) -->
+    <div class="max-w-[90vw] mx-auto py-16 lg:py-24 text-center relative">
+      <p class="font-mono text-xs uppercase tracking-widest text-begg-dark/60 mb-8">
+        Rich in Essential Vitamins &amp; Microelements
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-4xl mx-auto">
+        <span style="--rot:-8deg" class="nutrient-pill bg-begg-yolk text-begg-black font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full border-2 border-begg-black">Vitamin A</span>
+        <span style="--rot:6deg" class="nutrient-pill bg-begg-black text-white font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full">Vitamin D</span>
+        <span style="--rot:-4deg" class="nutrient-pill bg-white text-begg-black font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full border-2 border-begg-black">Vitamin E</span>
+        <span style="--rot:10deg" class="nutrient-pill bg-begg-yolk text-begg-black font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full border-2 border-begg-black">B1 / B2 / B6 / B12</span>
+        <span style="--rot:-12deg" class="nutrient-pill bg-begg-dark text-begg-yolk font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full">Omega-3</span>
+        <span style="--rot:5deg" class="nutrient-pill bg-white text-begg-black font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full border-2 border-begg-black">Phosphorus</span>
+        <span style="--rot:-6deg" class="nutrient-pill bg-begg-yolk text-begg-black font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full border-2 border-begg-black">Selenium</span>
+        <span style="--rot:8deg" class="nutrient-pill bg-begg-black text-white font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full">Iron &amp; Zinc</span>
+        <span style="--rot:-5deg" class="nutrient-pill bg-white text-begg-black font-display text-2xl sm:text-4xl uppercase px-6 py-3 rounded-full border-2 border-begg-black">Choline &amp; Iodine</span>
+      </div>
+      <img
+        src="https://www.b-egg.farm/images/bubbles.svg"
+        alt="Decorative Vitamin Bubbles"
+        class="w-full max-w-3xl mx-auto mt-8 opacity-80 pointer-events-none"
+      />
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. FEATURED PRODUCT GRID / COLLECTION SECTION (products.html + product-1/2.html)
+       Uses direct product images: product_1_new.png & product_2_new.png
+       ========================================================================= -->
+  <section id="products" class="py-20 lg:py-28 bg-begg-creamAlt border-y border-begg-black/10">
+    <div class="max-w-[90vw] mx-auto">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-begg-dark/60 block mb-2">
+            [ Choose Your Fighter ]
+          </span>
+          <h2 class="display-h2 text-begg-black">
+            Our Liquid <span class="text-begg-yolk drop-shadow-[0_2px_0_rgba(0,0,0,1)]">Egg Range</span>
+          </h2>
+        </div>
+        <p class="max-w-md font-mono text-xs uppercase leading-relaxed text-begg-dark/80">
+          Pasteurized and packaged in state-of-the-art facilities. Ready to pour for omelets, protein shakes, baking, and culinary prep.
+        </p>
+      </div>
+
+      <!-- 2-Column Split Product Grid (Matching products.html .column_50) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <!-- PRODUCT 1: LIQUID WHOLE EGG / EGG WHITE YELLOW CARTON (product_1_new.png) -->
+        <article class="group bg-begg-cream rounded-3xl border-2 border-begg-black overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+          <div class="relative bg-[#F6F3E8] aspect-[16/11] overflow-hidden flex items-center justify-center p-6">
+            <img
+              src="https://www.b-egg.farm/images/product_1_new.png"
+              alt="BEGG Liquid Whole Egg 500ml Carton"
+              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-5 right-5 bg-begg-yolk text-begg-black border border-begg-black font-mono text-xs font-bold uppercase px-4 py-1.5 rounded-full">
+              9–15 Eggs | 500 ML
+            </span>
+          </div>
+
+          <div class="p-6 sm:p-10 flex-1 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="font-mono text-xs uppercase text-begg-dark/60 mb-1">In This Package &bull; Barcode 4820 1316 6088</div>
+              <h3 class="display-h2 text-begg-black mb-4">Liquid Whole Egg</h3>
+              <p class="text-sm sm:text-base text-begg-dark/85 leading-relaxed">
+                We freed fresh chicken eggs from the shell and mixed them—so that you spend less effort in the kitchen. Try making omelets, scrambled eggs, pancakes, or pastries to appreciate all its benefits!
+              </p>
+            </div>
+
+            <div class="space-y-5 pt-4 border-t border-begg-black/10">
+              <div class="flex flex-wrap gap-2 font-mono text-xs uppercase">
+                <span class="bg-begg-creamAlt border border-begg-black/20 px-3.5 py-1.5 rounded-full">Fat — 10.2 G</span>
+                <span class="bg-begg-creamAlt border border-begg-black/20 px-3.5 py-1.5 rounded-full">Carbs — 1.1 G</span>
+                <span class="bg-begg-yolk border border-begg-black px-3.5 py-1.5 rounded-full font-bold">Proteins — 12.5 G</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  onclick="toggleStockistModal(true)"
+                  class="flex-1 bg-begg-black text-begg-yolk font-mono text-xs sm:text-sm uppercase tracking-wider py-4 px-8 rounded-pill hover:bg-begg-yolk hover:text-begg-black border border-begg-black transition-all duration-200 font-bold"
+                >
+                  Check Product / Find Stockists
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRODUCT 2: LIQUID EGG WHITE CARTON (product_2_new.png) -->
+        <article class="group bg-begg-cream rounded-3xl border-2 border-begg-black overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+          <div class="relative bg-[#F6F3E8] aspect-[16/11] overflow-hidden flex items-center justify-center p-6">
+            <img
+              src="https://www.b-egg.farm/images/product_2_new.png"
+              alt="BEGG Liquid Egg White 500ml Carton"
+              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-5 right-5 bg-white text-begg-black border border-begg-black font-mono text-xs font-bold uppercase px-4 py-1.5 rounded-full">
+              15 Eggs | 500 ML
+            </span>
+          </div>
+
+          <div class="p-6 sm:p-10 flex-1 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="font-mono text-xs uppercase text-begg-dark/60 mb-1">In This Package &bull; Pure Protein Edition</div>
+              <h3 class="display-h2 text-begg-black mb-4">Liquid Egg White</h3>
+              <p class="text-sm sm:text-base text-begg-dark/85 leading-relaxed">
+                If you often buy eggs just for protein, this product is for you. Contains fresh egg whites from our own poultry farms: a valuable source of amino acids and protein without fat and cholesterol.
+              </p>
+            </div>
+
+            <div class="space-y-5 pt-4 border-t border-begg-black/10">
+              <div class="flex flex-wrap gap-2 font-mono text-xs uppercase">
+                <span class="bg-begg-creamAlt border border-begg-black/20 px-3.5 py-1.5 rounded-full">Fat — 0.0 G</span>
+                <span class="bg-begg-creamAlt border border-begg-black/20 px-3.5 py-1.5 rounded-full">Cholesterol — 0%</span>
+                <span class="bg-begg-yolk border border-begg-black px-3.5 py-1.5 rounded-full font-bold">100% Pure Albumen</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  onclick="toggleStockistModal(true)"
+                  class="flex-1 bg-begg-black text-begg-yolk font-mono text-xs sm:text-sm uppercase tracking-wider py-4 px-8 rounded-pill hover:bg-begg-yolk hover:text-begg-black border border-begg-black transition-all duration-200 font-bold"
+                >
+                  Check Product / Find Stockists
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- 5 Quality Certifications Strip (.div-block-22 from index.html) -->
+      <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-12 border-t border-begg-black/10">
+        <div class="flex items-center gap-4 bg-begg-cream p-4 rounded-2xl border border-begg-black/10">
+          <img src="https://www.b-egg.farm/images/Vector.svg" alt="Plant Fodder" class="w-10 h-10 object-contain shrink-0" />
+          <span class="font-mono text-xs uppercase font-bold">Plant Fodder</span>
+        </div>
+        <div class="flex items-center gap-4 bg-begg-cream p-4 rounded-2xl border border-begg-black/10">
+          <img src="https://www.b-egg.farm/images/Union.svg" alt="Certified Laboratory" class="w-10 h-10 object-contain shrink-0" />
+          <span class="font-mono text-xs uppercase font-bold">Certified Laboratory</span>
+        </div>
+        <div class="flex items-center gap-4 bg-begg-cream p-4 rounded-2xl border border-begg-black/10">
+          <img src="https://www.b-egg.farm/images/Vector-1.svg" alt="Without Antibiotics" class="w-10 h-10 object-contain shrink-0" />
+          <span class="font-mono text-xs uppercase font-bold">Without Antibiotics</span>
+        </div>
+        <div class="flex items-center gap-4 bg-begg-cream p-4 rounded-2xl border border-begg-black/10">
+          <img src="https://www.b-egg.farm/images/Group-1.svg" alt="Biological Packaging" class="w-10 h-10 object-contain shrink-0" />
+          <span class="font-mono text-xs uppercase font-bold">Biological Packaging</span>
+        </div>
+        <div class="flex items-center gap-4 bg-begg-cream p-4 rounded-2xl border border-begg-black/10 col-span-2 sm:col-span-1">
+          <img src="https://www.b-egg.farm/images/Vector-2.svg" alt="ISO Certified" class="w-10 h-10 object-contain shrink-0" />
+          <span class="font-mono text-xs uppercase font-bold">Certified Quality</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. INTERACTIVE CHICKEN MASCOT & PACKAGING FEATURES (.packs_section)
+       Includes actual chicken image, cluck audio, and orange_bg.png
+       ========================================================================= -->
+  <section id="features" class="relative py-20 lg:py-28 bg-begg-cream overflow-hidden">
+    <div class="max-w-[90vw] mx-auto">
+      
+      <!-- Interactive Chicken Mascot with Real Cluck Audio from b-egg.farm -->
+      <div class="relative flex flex-col items-center justify-center mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <button
+            type="button"
+            onclick="playCluckSound()"
+            class="group inline-flex items-center gap-3 bg-begg-yolk border-2 border-begg-black px-5 py-2 rounded-full font-mono text-xs uppercase font-bold hover:bg-begg-black hover:text-begg-yolk transition-colors shadow-md"
+          >
+            <span>Click the Chicken to Cluck!</span>
+            <img src="https://www.b-egg.farm/images/cluck.svg" alt="Cluck!" class="w-8 h-auto bg-black rounded-full p-1" />
+          </button>
+        </div>
+        <img
+          src="https://www.b-egg.farm/images/chicken.png"
+          alt="B-Egg Farm Chicken Mascot"
+          onclick="playCluckSound()"
+          class="w-full max-w-2xl h-auto cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+        />
+      </div>
+
+      <!-- Orange Packaging Feature Window (.main_image_window + .grid-7) -->
+      <div class="relative rounded-3xl overflow-hidden border-2 border-begg-black shadow-2xl">
+        <img
+          src="https://www.b-egg.farm/images/orange_bg.png"
+          alt="Orange Packaging Background"
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+        <div class="relative z-10 bg-begg-yolk/85 backdrop-blur-sm p-8 sm:p-12 lg:p-16">
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="font-mono text-xs uppercase tracking-widest text-begg-dark/70 block mb-2">
+              The Most Comfortable Eggs
+            </span>
+            <h2 class="display-h2 text-begg-black">Why Choose B-Egg?</h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Feature 1: Easy -->
+            <div class="bg-begg-cream rounded-2xl border-2 border-begg-black p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b border-begg-black/15 pb-4 mb-4">
+                  <h4 class="display-h4 text-begg-black">Easy</h4>
+                  <span class="font-mono text-xs uppercase font-bold bg-begg-yolk px-3 py-1 rounded-full border border-begg-black">
+                    9 Egg / 500 ml
+                  </span>
+                </div>
+                <p class="text-sm sm:text-base text-begg-dark/85 leading-relaxed">
+                  Liquid egg products are a ready-to-use ingredient that minimizes your time in the kitchen.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature 2: Compact -->
+            <div class="bg-begg-cream rounded-2xl border-2 border-begg-black p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b border-begg-black/15 pb-4 mb-4">
+                  <h4 class="display-h4 text-begg-black">Compact</h4>
+                  <span class="font-mono text-xs uppercase font-bold bg-begg-yolk px-3 py-1 rounded-full border border-begg-black">
+                    150×325 mm
+                  </span>
+                </div>
+                <p class="text-sm sm:text-base text-begg-dark/85 leading-relaxed">
+                  Convenient ecological packaging with liquid egg product will take up significantly less space in the refrigerator than eggs.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature 3: Quality -->
+            <div class="bg-begg-cream rounded-2xl border-2 border-begg-black p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b border-begg-black/15 pb-4 mb-4">
+                  <h4 class="display-h4 text-begg-black">Quality</h4>
+                  <span class="font-mono text-xs uppercase font-bold bg-begg-yolk px-3 py-1 rounded-full border border-begg-black">
+                    No Hormones
+                  </span>
+                </div>
+                <p class="text-sm sm:text-base text-begg-dark/85 leading-relaxed">
+                  In the package, you will find the same quality and delicious eggs "Begg" that meet food safety standards without antibiotics or growth hormones.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. RECIPES & STORAGE CONDITIONS + "THE BEST OF THE BEST" VIDEO SECTION
+       ========================================================================= -->
+  <section id="recipes" class="py-20 bg-begg-cream border-t border-begg-black/10">
+    <div class="max-w-[85vw] mx-auto space-y-16">
+      <!-- Masked Food Title Graphic from b-egg.farm -->
+      <div class="relative rounded-3xl overflow-hidden border-2 border-begg-black bg-begg-creamAlt p-6 sm:p-12">
+        <img
+          src="https://www.b-egg.farm/images/mask_title_img.webp"
+          alt="Delicious Recipes with B-Egg"
+          class="w-full max-w-4xl mx-auto h-auto mb-10 rounded-xl"
+        />
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-begg-black/10 pb-10 mb-10">
+          <p class="lg:col-span-8 text-base sm:text-lg text-begg-dark/85 leading-relaxed">
+            We have collected a wide variety of recipes especially for you. They are perfect for true gourmets, athletes, and lazy bones. We are sure you will find something to your liking there.
+          </p>
+          <div class="lg:col-span-4 flex lg:justify-end">
+            <a
+              href="#products"
+              class="bg-begg-black text-begg-yolk font-mono text-xs sm:text-sm uppercase tracking-wider px-9 py-5 rounded-pill hover:bg-begg-yolk hover:text-begg-black transition-all duration-200"
+            >
+              Check Recipes
+            </a>
+          </div>
+        </div>
+
+        <!-- Storage Conditions & Barcodes (.grid-5) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 font-mono text-xs uppercase">
+          <div>
+            <div class="text-begg-dark/50 mb-2">Shelf Life &amp; Storage Conditions</div>
+            <div class="text-begg-yolk bg-begg-black inline-block px-3 py-1 rounded font-bold mb-3">
+              30 days at a temperature of (4 + 2) °C
+            </div>
+            <p class="font-sans normal-case text-sm text-begg-dark/80 leading-relaxed">
+              After opening, store in the original package with a tightly closed lid for no more than 2 days at 0°C to 4°C. Shake before use.
+            </p>
+          </div>
+          <div>
+            <div class="text-begg-dark/50 mb-2">Bar Code of Packaging</div>
+            <div class="font-display text-3xl sm:text-4xl text-begg-black tracking-wider">4820 1316 6088</div>
+          </div>
+          <div>
+            <div class="text-begg-dark/50 mb-2">Barcode Box</div>
+            <div class="font-display text-3xl sm:text-4xl text-begg-black tracking-wider">4820 1316 6094</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- "The Best of the Best" Video Banner (.eggs_section) -->
+      <div id="best" class="relative rounded-3xl overflow-hidden min-h-[480px] flex items-center justify-center text-center p-8 sm:p-16 border-2 border-begg-black">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+        >
+          <source src="https://res.cloudinary.com/dsqq04lp7/video/upload/v1677594110/Webflow/Comp_1_emnmj6.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-black/45"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+          <h2 class="display-h1 text-white">
+            <span class="block">The Best Of</span>
+            <span class="block text-begg-yolk">The Best</span>
+          </h2>
+          <p class="font-mono text-xs sm:text-sm uppercase text-white/90 leading-relaxed">
+            Our chicken eggs are carefully selected for the base. Quality control is one of the main points that we pay attention to when manufacturing our product.
+          </p>
+          <div class="pt-2">
+            <button
+              type="button"
+              onclick="toggleStockistModal(true)"
+              class="bg-begg-black text-begg-yolk font-mono text-xs sm:text-sm uppercase tracking-wider px-9 py-5 rounded-pill hover:bg-begg-yolk hover:text-begg-black transition-all duration-200"
+            >
+              Find Out More
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. FOOTER SECTION (.footer-light)
+       Uses official Begg.svg & Tubik Studio SVG logos from b-egg.farm
+       ========================================================================= -->
+  <footer class="bg-begg-dark text-begg-beige pt-20 pb-12 lg:pt-28 lg:pb-16 border-t border-white/10">
+    <div class="max-w-[90vw] mx-auto">
+      
+      <!-- Top Grid (.grid-2) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-white/15">
+        
+        <!-- Left: "Don't miss new items" -->
+        <div class="lg:col-span-5">
+          <h2 class="display-h2 text-white">
+            <span class="block">Don't Miss</span>
+            <span class="block text-begg-yolk">New Items</span>
+          </h2>
+        </div>
+
+        <!-- Middle: Newsletter Form (.footer-form) -->
+        <div class="lg:col-span-4 flex flex-col justify-center">
+          <form
+            class="w-full"
+            onsubmit="event.preventDefault(); document.getElementById('newsletter-success').classList.remove('hidden');"
+          >
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <input
+                type="email"
+                required
+                placeholder="ENTER YOUR EMAIL"
+                aria-label="Get product updates"
+                class="w-full bg-transparent text-begg-beige placeholder-begg-beige/60 font-mono text-xs sm:text-sm uppercase border border-white rounded-full px-6 py-4 focus:outline-none focus:border-begg-yolk transition-colors"
+              />
+              <button
+                type="submit"
+                class="bg-begg-yolk text-begg-dark font-mono text-xs sm:text-sm font-bold uppercase px-8 py-4 rounded hover:bg-begg-cream transition-colors shrink-0"
+              >
+                Go
+              </button>
+            </div>
+            <p id="newsletter-success" class="hidden mt-3 font-mono text-xs uppercase text-begg-yolk">
+              Thank you! Your submission has been received!
+            </p>
+          </form>
+        </div>
+
+        <!-- Right: Contact & Navigation Links (.footer_links_row) -->
+        <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8 font-mono text-xs uppercase">
+          <div class="space-y-1.5">
+            <div class="text-white/50 tracking-widest mb-2">You Can Find Us</div>
+            <a href="mailto:Beateneggs@world.com" class="block text-white hover:text-begg-yolk transition-colors">Beateneggs@world.com</a>
+            <a href="tel:+301103712437" class="block text-white hover:text-begg-yolk transition-colors">+30 110 3712 437</a>
+            <div class="text-begg-beige pt-1">
+              3517 W. Gray St. Utica,<br />Pennsylvania 57867
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="text-white/50 tracking-widest mb-2">A Few Words About Us</div>
+            <div class="flex flex-wrap gap-x-5 gap-y-1">
+              <a href="#best" class="text-white hover:text-begg-yolk transition-colors">Who We Are</a>
+              <a href="#products" class="text-white hover:text-begg-yolk transition-colors">Products</a>
+              <a href="#recipes" class="text-white hover:text-begg-yolk transition-colors">Recipes</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row (.grid-2-copy) -->
+      <div class="pt-10 grid grid-cols-1 md:grid-cols-12 items-center gap-8 text-xs text-begg-beige">
+        <div class="md:col-span-3">
+          <a href="#" class="inline-block">
+            <img
+              src="https://www.b-egg.farm/images/Begg.svg"
+              alt="BEGG Footer Logo"
+              class="h-12 sm:h-14 w-auto"
+            />
+          </a>
+        </div>
+
+        <div class="md:col-span-6 leading-relaxed text-begg-beige/80">
+          When you use our services, you’re trusting us with your information. We understand this is a big responsibility and work hard to protect your information and put you in control.
+        </div>
+
+        <div class="md:col-span-3 flex md:justify-end items-center gap-3">
+          <span class="text-begg-beige/80">Made by</span>
+          <a href="https://tubikstudio.com/" target="_blank" rel="noopener">
+            <img
+              src="https://www.b-egg.farm/images/1616eb564ea00e94bb450de67_tubik_logo-1-1.svg"
+              alt="Tubik Studio"
+              class="h-6 w-auto"
+            />
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       8. STOCKIST POP-UP MODAL (From product-1.html .pop_up_wrapper)
+       Uses direct retail store logos Frame-117.png to Frame-121.png
+       ========================================================================= -->
+  <div
+    id="stockist-modal"
+    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4"
+  >
+    <div class="bg-begg-cream border-2 border-begg-black rounded-3xl max-w-3xl w-full p-6 sm:p-10 relative">
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-4">
+          <h3 class="display-h2 text-begg-black">Look For Us Here</h3>
+          <img src="https://www.b-egg.farm/images/soon.svg" alt="Soon" class="h-10 w-auto" />
+        </div>
+        <button
+          type="button"
+          onclick="toggleStockistModal(false)"
+          class="w-10 h-10 rounded-full border-2 border-begg-black flex items-center justify-center hover:bg-begg-black hover:text-white transition-colors"
+        >
+          ✕
+        </button>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 items-center">
+        <img src="https://www.b-egg.farm/images/Frame-117.png" alt="Stockist 1" class="w-full h-auto rounded-xl border border-begg-black/10" />
+        <img src="https://www.b-egg.farm/images/Frame-118.png" alt="Stockist 2" class="w-full h-auto rounded-xl border border-begg-black/10" />
+        <img src="https://www.b-egg.farm/images/Frame-119.png" alt="Stockist 3" class="w-full h-auto rounded-xl border border-begg-black/10" />
+        <img src="https://www.b-egg.farm/images/Frame-120.png" alt="Stockist 4" class="w-full h-auto rounded-xl border border-begg-black/10" />
+        <img src="https://www.b-egg.farm/images/Frame-121.png" alt="Stockist 5" class="w-full h-auto rounded-xl border border-begg-black/10" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Scripts (Menu Drawer, Stockists Modal & Chicken Cluck Sound) -->
+  <script>
+    const openBtn = document.getElementById('menu-open-btn');
+    const closeBtn = document.getElementById('menu-close-btn');
+    const drawer = document.getElementById('nav-drawer');
+    const stockistModal = document.getElementById('stockist-modal');
+    const cluckAudio = new Audio('https://res.cloudinary.com/dsqq04lp7/video/upload/v1680163326/chicken-laying-egg-vocalisations-x-3_jek5gm.mp3');
+
+    function toggleMenu(show) {
+      if (show) {
+        drawer.classList.remove('hidden');
+        requestAnimationFrame(() => drawer.classList.remove('opacity-0'));
+      } else {
+        drawer.classList.add('opacity-0');
+        setTimeout(() => drawer.classList.add('hidden'), 300);
+      }
+    }
+
+    function toggleStockistModal(show) {
+      if (show) {
+        stockistModal.classList.remove('hidden');
+        stockistModal.classList.add('flex');
+      } else {
+        stockistModal.classList.add('hidden');
+        stockistModal.classList.remove('flex');
+      }
+    }
+
+    function playCluckSound() {
+      cluckAudio.currentTime = 0;
+      cluckAudio.play().catch(() => {});
+    }
+
+    openBtn.addEventListener('click', () => toggleMenu(true));
+    closeBtn.addEventListener('click', () => toggleMenu(false));
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+  </script>
+</body>
+</html>
